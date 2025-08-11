@@ -1,15 +1,61 @@
 <!doctype html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
-<head><meta charset="utf-8"><title>Tache</title></head>
-    <body>
-    <h1>Tasks</h1>
-    <ul>
-        <li th:each="t : ${tasks}">
-            <a th:href="@{|/tasks/${t.id}|}" th:text="${t.title}">titre</a>
-            — propriétaire : <span th:text="${t.user.username}">propriétaire</span>
-            <span th:text="${t.completed ? ' (done)' : ''}"></span>
-        </li>
-    </ul>
-    <a href="/users">Voir les utilisateurs</a>
-    </body>
+<head>
+    <meta charset="utf-8">
+    <title>Tâches</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="/">TODO List</a>
+        <div>
+            <a class="nav-link text-white" href="/users">Utilisateurs</a>
+            <a class="nav-link text-white" href="/tasks">Tâches</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Liste des tâches</h1>
+        <a href="/tasks/new" class="btn btn-success">➕ Ajouter</a>
+    </div>
+    <table class="table table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th>Titre</th>
+            <th>Propriétaire</th>
+            <th>Statut</th>
+            <th style="width: 200px;">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="t : ${tasks}">
+            <td><a th:href="@{|/tasks/${t.id}|}" th:text="${t.title}">Titre</a></td>
+            <td th:text="${t.user.username}">Propriétaire</td>
+            <td>
+                <span class="badge"
+                      th:classappend="${t.completed} ? 'bg-success' : 'bg-warning text-dark'"
+                      th:text="${t.completed ? 'Terminée' : 'En cours'}"></span>
+            </td>
+            <td>
+                <a th:href="@{|/tasks/${t.id}/edit|}" class="btn btn-warning btn-sm">Modifier</a>
+
+                <form th:action="@{/tasks/{id}/delete(id=${t.id})}" method="post" style="display:inline">
+                    <button type="submit" class="btn btn-danger btn-sm"
+                            onclick="return confirm('Supprimer cette tâche ?');">
+                        Supprimer
+                    </button>
+                </form>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/users" class="btn btn-primary">Voir les utilisateurs</a>
+</div>
+
+</body>
 </html>
