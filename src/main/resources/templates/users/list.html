@@ -1,0 +1,14 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head><meta charset="utf-8"><title>Utilisateur</title></head>
+    <body>
+        <h1>Users</h1>
+        <ul>
+            <li th:each="u : ${users}">
+                <a th:href="@{|/users/${u.id}|}" th:text="${u.username}">nom</a>
+                — <span th:text="${u.email}">email</span>
+            </li>
+        </ul>
+        <a href="/tasks">Voir les taches</a>
+    </body>
+</html>

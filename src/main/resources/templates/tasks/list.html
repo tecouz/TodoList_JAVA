@@ -1,0 +1,15 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head><meta charset="utf-8"><title>Tache</title></head>
+    <body>
+    <h1>Tasks</h1>
+    <ul>
+        <li th:each="t : ${tasks}">
+            <a th:href="@{|/tasks/${t.id}|}" th:text="${t.title}">titre</a>
+            — propriétaire : <span th:text="${t.user.username}">propriétaire</span>
+            <span th:text="${t.completed ? ' (done)' : ''}"></span>
+        </li>
+    </ul>
+    <a href="/users">Voir les utilisateurs</a>
+    </body>
+</html>

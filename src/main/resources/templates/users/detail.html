@@ -1,0 +1,17 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head><meta charset="utf-8"><title>User Detail</title></head>
+    <body>
+        <h1 th:text="${user.username}">Utilisateur</h1>
+        <p>Email: <span th:text="${user.email}"></span></p>
+
+        <h2>Tasks</h2>
+        <ul>
+            <li th:each="t : ${user.tasks}">
+                <a th:href="@{|/tasks/${t.id}|}" th:text="${t.title}">tache</a>
+                <span th:text="${t.completed ? ' (done)' : ''}"></span>
+            </li>
+        </ul>
+        <a href="/users">Retour à la liste</a>
+    </body>
+</html>
